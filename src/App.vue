@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>入力してください</p>
+    <input type="text" v-model="form.str">
+    <input type="text" v-model="form.tag">
+    <button type="submit" @click="clickEvent">登録</button>
+    <ul v-for=" (view,i) in views" :key="i">
+      <li>タスク名:{{ view.str }} タグ:{{ view.tag }}<button @click="deleteEvent(i)">削除</button></li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return{
+      form:{
+        str:"",
+        tag:""
+      },
+      dir:{
+        str:"",
+        tag:"",
+      },
+      views:[]
+    }
+  },
+  methods: {
+    clickEvent(){
+      this.dir["str"] = this.form.str
+      this.dir["tag"] = this.form.tag
+      this.views.push(this.dir)
+    },
+    deleteEvent(index){
+      this.views.splice(index,1)
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+*{
+  font-size:20px;
 }
 </style>
